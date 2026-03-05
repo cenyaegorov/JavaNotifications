@@ -1,7 +1,5 @@
 package com.example.javanotifications.email.application.usecase;
 
-import java.util.UUID;
-
 import com.example.javanotifications.email.application.dto.SendNotificationCommand;
 import com.example.javanotifications.email.application.port.in.SendNotificationUsecasePort;
 import com.example.javanotifications.email.application.port.out.EventPublisher;
@@ -20,9 +18,9 @@ public class SendNotificationUsecase implements SendNotificationUsecasePort {
 
 	@Override
 	public void execute(SendNotificationCommand command) {
-		Notification notification = new Notification(UUID.randomUUID(), command.getEmail());
+		Notification notification = new Notification(command.requestId(), command.email());
 		repository.save(notification);
-		publisher.publish(notification);
+		publisher.publishNotification(notification);
 	}
 
 }

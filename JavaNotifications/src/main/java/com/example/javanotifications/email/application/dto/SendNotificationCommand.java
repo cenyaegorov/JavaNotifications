@@ -1,8 +1,9 @@
 package com.example.javanotifications.email.application.dto;
 
-import lombok.Data;
+import java.util.UUID;
 
-@Data
-public class SendNotificationCommand {
-	private final String email;
+public record SendNotificationCommand(
+		UUID requestId,
+		String email
+		){
 }
