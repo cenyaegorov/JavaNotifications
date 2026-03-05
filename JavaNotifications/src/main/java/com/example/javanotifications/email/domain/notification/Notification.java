@@ -4,6 +4,8 @@ import java.time.Instant;
 import java.util.UUID;
 
 public class Notification {
+	private final byte MAX_ATTEMPT = 4;
+	
 	private final String email;
 	private final UUID id;
 	private final Instant createdAt;
@@ -29,7 +31,10 @@ public class Notification {
 	}
 	public void markFailed() {
 		this.attemptCount++;
-		this.status = NotificationStatus.FAILED;
+		if (this.attemptCount >= this.MAX_ATTEMPT) {
+			this.status = NotificationStatus.DEAD;
+		}
+		else this.status = NotificationStatus.FAILED;
 		this.updatedAt = Instant.now();
 	}
 	public boolean isDead() {
