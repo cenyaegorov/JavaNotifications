@@ -1,16 +1,44 @@
 package com.example.javanotifications.email.domain.notification;
 
+import java.time.Instant;
 import java.util.UUID;
 
-import lombok.Data;
-
-@Data
 public class Notification {
 	private final String email;
-	private UUID request_id;
-	private final String created_at;
-	private String updated_at;
-	private byte attempt_count;
+	private final UUID id;
+	private final Instant createdAt;
+	private Instant updatedAt;
+	private byte attemptCount;
 	private NotificationStatus status;
 
+	public Notification(UUID id, String email) {
+		this.id = id;
+		this.email = email;
+		this.createdAt = Instant.now();
+		this.attemptCount = 0;
+		this.status = NotificationStatus.NEW;
+	}
+	
+	public void markProcessing() {
+		this.status = NotificationStatus.PROCESSING;
+		this.updatedAt = Instant.now();
+	}
+	public void markSent() {
+		this.status = NotificationStatus.SENT;
+		this.updatedAt = Instant.now();
+	}
+	public void markFailed() {
+		this.attemptCount++;
+		this.status = NotificationStatus.FAILED;
+		this.updatedAt = Instant.now();
+	}
+	public boolean isDead() {
+		return this.attemptCount >= 4;
+	}
+	
+	public String getEmail() { return this.email; }
+	public Instant getCreatedAt() { return this.createdAt; }
+	public Instant getUpdatedAt() { return this.updatedAt; }
+	public UUID getId() { return this.id; }
+	public NotificationStatus getStatus() { return this.status; }
 }
