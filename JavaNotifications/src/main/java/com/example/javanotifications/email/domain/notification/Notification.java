@@ -12,14 +12,16 @@ public class Notification {
 	private Instant updatedAt;
 	private byte attemptCount;
 	private NotificationStatus status;
+	private String payload;
 
-	public Notification(UUID requestId, String email) {
+	public Notification(UUID requestId, String email, String payload) {
 		this.requestId = requestId;
 		this.email = email;
 		this.createdAt = Instant.now();
 		this.updatedAt = Instant.now();
 		this.attemptCount = 0;
 		this.status = NotificationStatus.NEW;
+		this.payload = payload;
 	}
 	
 	public void markProcessing() {
@@ -54,4 +56,5 @@ public class Notification {
 	public UUID getId() { return this.requestId; }
 	public NotificationStatus getStatus() { return this.status; }
 	public byte getAttemptCount() { return this.attemptCount; }
+	public String getPayload() { return this.payload; }
 }

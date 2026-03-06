@@ -18,7 +18,7 @@ public class SendNotificationUsecase implements SendNotificationUsecasePort {
 
 	@Override
 	public void execute(SendNotificationCommand command) {
-		Notification notification = new Notification(command.requestId(), command.email());
+		Notification notification = new Notification(command.requestId(), command.email(), command.payload());
 		repository.save(notification);
 		publisher.publishNotification(notification);
 	}

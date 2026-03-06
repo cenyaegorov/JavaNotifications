@@ -4,6 +4,7 @@ import java.util.UUID;
 
 public record SendNotificationCommand(
 		UUID requestId,
-		String email
+		String email,
+		String payload
 		){
 }
