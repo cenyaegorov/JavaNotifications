@@ -4,24 +4,29 @@ import java.time.Instant;
 import java.util.UUID;
 
 public class Notification {
-	private final byte MAX_ATTEMPT = 4;
+	private static final byte MAX_ATTEMPT = 3;
 	
 	private final String email;
-	private final UUID id;
+	private final UUID requestId;
 	private final Instant createdAt;
 	private Instant updatedAt;
 	private byte attemptCount;
 	private NotificationStatus status;
 
-	public Notification(UUID id, String email) {
-		this.id = id;
+	public Notification(UUID requestId, String email) {
+		this.requestId = requestId;
 		this.email = email;
 		this.createdAt = Instant.now();
+		this.updatedAt = Instant.now();
 		this.attemptCount = 0;
 		this.status = NotificationStatus.NEW;
 	}
 	
 	public void markProcessing() {
+		if (this.status != NotificationStatus.NEW) {
+			throw new IllegalStateException("cannot process notification in status " + this.status);
+		}
+		
 		this.status = NotificationStatus.PROCESSING;
 		this.updatedAt = Instant.now();
 	}
@@ -31,19 +36,22 @@ public class Notification {
 	}
 	public void markFailed() {
 		this.attemptCount++;
-		if (this.attemptCount >= this.MAX_ATTEMPT) {
+		if (this.attemptCount >= MAX_ATTEMPT) {
 			this.status = NotificationStatus.DEAD;
 		}
-		else this.status = NotificationStatus.FAILED;
+		else {
+			this.status = NotificationStatus.FAILED;
+		}
 		this.updatedAt = Instant.now();
 	}
 	public boolean isDead() {
-		return this.attemptCount >= 4;
+		return this.attemptCount >= MAX_ATTEMPT;
 	}
 	
 	public String getEmail() { return this.email; }
 	public Instant getCreatedAt() { return this.createdAt; }
 	public Instant getUpdatedAt() { return this.updatedAt; }
-	public UUID getId() { return this.id; }
+	public UUID getId() { return this.requestId; }
 	public NotificationStatus getStatus() { return this.status; }
+	public byte getAttemptCount() { return this.attemptCount; }
 }
