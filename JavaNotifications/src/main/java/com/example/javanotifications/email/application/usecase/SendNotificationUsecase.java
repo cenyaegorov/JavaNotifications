@@ -19,11 +19,12 @@ public class SendNotificationUsecase implements SendNotificationUsecasePort {
 	}
 
 	@Override
-	public void execute(SendNotificationCommand command) {
+	public boolean execute(SendNotificationCommand command) {
 		Notification notification = new Notification(command.requestId(), command.email(), command.payload());
 		OutboxEvent outboxEvent = new OutboxEvent(command.requestId());
 		notificationRepository.save(notification);
 		outboxRepository.saveEvent(outboxEvent);
+		return true;
 	}
 
 }
