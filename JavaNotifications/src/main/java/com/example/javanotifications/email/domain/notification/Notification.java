@@ -24,6 +24,16 @@ public class Notification {
 		this.payload = payload;
 	}
 	
+	public Notification(UUID requestId, String email, String payload, Instant createdAt, Instant updatedAt, byte attemptCount, NotificationStatus status) {
+		this.requestId = requestId;
+		this.email = email;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.attemptCount = attemptCount;
+		this.status = status;
+		this.payload = payload;
+	}
+	
 	public void markProcessing() {
 		if (this.status != NotificationStatus.NEW) {
 			throw new IllegalStateException("cannot process notification in status " + this.status);
