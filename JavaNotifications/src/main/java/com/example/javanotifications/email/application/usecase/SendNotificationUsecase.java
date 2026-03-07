@@ -4,7 +4,7 @@ import com.example.javanotifications.email.application.dto.SendNotificationComma
 import com.example.javanotifications.email.application.port.in.SendNotificationUsecasePort;
 import com.example.javanotifications.email.application.port.out.EventPublisher;
 import com.example.javanotifications.email.application.port.out.repositories.NotificationRepository;
-import com.example.javanotifications.email.application.port.out.repositories.OutboxRepository;
+import com.example.javanotifications.email.application.port.out.repositories.OutboxEventRepository;
 import com.example.javanotifications.email.domain.notification.Notification;
 import com.example.javanotifications.email.domain.outbox.OutboxEvent;
 
@@ -13,9 +13,9 @@ import jakarta.transaction.Transactional;
 public class SendNotificationUsecase implements SendNotificationUsecasePort {
 	
 	private final NotificationRepository notificationRepository;
-	private final OutboxRepository outboxRepository;
+	private final OutboxEventRepository outboxRepository;
 	
-	public SendNotificationUsecase(NotificationRepository notificationRepository, OutboxRepository outboxRepository) {
+	public SendNotificationUsecase(NotificationRepository notificationRepository, OutboxEventRepository outboxRepository) {
 		this.notificationRepository = notificationRepository;
 		this.outboxRepository = outboxRepository;
 	}

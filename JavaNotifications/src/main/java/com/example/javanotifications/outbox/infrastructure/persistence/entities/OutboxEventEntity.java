@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "outboxt_events")
+@Table(name = "outbox_events")
 public class OutboxEventEntity {
 	@Id
 	private UUID requestId;

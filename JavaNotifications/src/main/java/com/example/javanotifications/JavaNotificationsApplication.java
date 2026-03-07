@@ -9,10 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 import com.example.javanotifications.email.application.dto.SendNotificationCommand;
-import com.example.javanotifications.email.application.port.out.repositories.NotificationRepository;
-import com.example.javanotifications.email.application.port.out.repositories.OutboxRepository;
 import com.example.javanotifications.email.application.usecase.SendNotificationUsecase;
-import com.example.javanotifications.outbox.infrastructure.persistence.PostgresOutboxRepository;
 
 @SpringBootApplication
 public class JavaNotificationsApplication implements ApplicationContextAware{
