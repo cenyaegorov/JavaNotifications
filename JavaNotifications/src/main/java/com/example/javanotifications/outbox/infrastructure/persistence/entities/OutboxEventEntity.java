@@ -2,7 +2,7 @@ package com.example.javanotifications.outbox.infrastructure.persistence.entities
 
 import java.util.UUID;
 
-import com.example.javanotifications.email.domain.outbox.OutboxEventStatus;
+import com.example.javanotifications.outbox.domain.OutboxEventStatus;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "outbox_events")
 public class OutboxEventEntity {
 	@Id
-	private UUID requestId;
+	private UUID id;
 	@Enumerated(EnumType.STRING)
 	private OutboxEventStatus status;
 }

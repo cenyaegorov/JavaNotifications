@@ -6,7 +6,7 @@ import com.example.javanotifications.email.application.port.out.EventPublisher;
 import com.example.javanotifications.email.application.port.out.repositories.NotificationRepository;
 import com.example.javanotifications.email.application.port.out.repositories.OutboxEventRepository;
 import com.example.javanotifications.email.domain.notification.Notification;
-import com.example.javanotifications.email.domain.outbox.OutboxEvent;
+import com.example.javanotifications.outbox.domain.OutboxEvent;
 
 import jakarta.transaction.Transactional;
 

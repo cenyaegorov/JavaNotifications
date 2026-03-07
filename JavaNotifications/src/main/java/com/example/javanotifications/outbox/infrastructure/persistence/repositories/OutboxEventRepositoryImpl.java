@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.javanotifications.email.application.port.out.DomainEntityMapper;
 import com.example.javanotifications.email.application.port.out.repositories.OutboxEventRepository;
-import com.example.javanotifications.email.domain.outbox.OutboxEvent;
+import com.example.javanotifications.outbox.domain.OutboxEvent;
 import com.example.javanotifications.outbox.infrastructure.persistence.entities.OutboxEventEntity;
 
 @Repository

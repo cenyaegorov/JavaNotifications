@@ -3,7 +3,7 @@ package com.example.javanotifications.outbox.infrastructure.persistence.mappers;
 import org.springframework.stereotype.Component;
 
 import com.example.javanotifications.email.application.port.out.DomainEntityMapper;
-import com.example.javanotifications.email.domain.outbox.OutboxEvent;
+import com.example.javanotifications.outbox.domain.OutboxEvent;
 import com.example.javanotifications.outbox.infrastructure.persistence.entities.OutboxEventEntity;
 
 @Component
@@ -11,13 +11,13 @@ public class OutboxEventMapperImpl implements DomainEntityMapper<OutboxEvent, Ou
 
 	@Override
 	public OutboxEvent toDomain(OutboxEventEntity entity) {
-		return new OutboxEvent(entity.getRequestId(), entity.getStatus());
+		return new OutboxEvent(entity.getId(), entity.getStatus());
 	}
 
 	@Override
 	public OutboxEventEntity toEntity(OutboxEvent domain) {
 		OutboxEventEntity entity = new OutboxEventEntity();
-		entity.setRequestId(domain.getRequestId());
+		entity.setId(domain.getId());
 		entity.setStatus(domain.getStatus());
 		return entity;
 	}

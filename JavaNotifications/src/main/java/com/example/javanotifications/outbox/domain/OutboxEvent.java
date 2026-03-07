@@ -1,18 +1,18 @@
-package com.example.javanotifications.email.domain.outbox;
+package com.example.javanotifications.outbox.domain;
 
 import java.util.UUID;
 
 public class OutboxEvent {
-	private final UUID requestId;
+	private final UUID id;
 	private OutboxEventStatus status;
 	
-	public OutboxEvent(UUID requestId) {
-		this.requestId = requestId;
+	public OutboxEvent(UUID id) {
+		this.id = id;
 		this.status = OutboxEventStatus.NEW;
 	}
 	
-	public OutboxEvent(UUID requestId, OutboxEventStatus status) {
-		this.requestId = requestId;
+	public OutboxEvent(UUID id, OutboxEventStatus status) {
+		this.id = id;
 		this.status = status;
 	}
 	
@@ -23,6 +23,6 @@ public class OutboxEvent {
 		this.status = OutboxEventStatus.FAILED;
 	}
 	
-	public UUID getRequestId() { return this.requestId; }
+	public UUID getId() { return this.id; }
 	public OutboxEventStatus getStatus() { return this.status; }
 }
