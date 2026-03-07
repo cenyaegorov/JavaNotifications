@@ -2,26 +2,34 @@ package com.example.javanotifications;
 
 import java.util.UUID;
 
+import org.springframework.beans.BeansException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 import com.example.javanotifications.email.application.dto.SendNotificationCommand;
-import com.example.javanotifications.email.application.port.out.NotificationRepository;
-import com.example.javanotifications.email.application.port.out.OutboxRepository;
+import com.example.javanotifications.email.application.port.out.repositories.NotificationRepository;
+import com.example.javanotifications.email.application.port.out.repositories.OutboxRepository;
 import com.example.javanotifications.email.application.usecase.SendNotificationUsecase;
-import com.example.javanotifications.outbox.infrastructure.persistence.PostgresNotificationRepository;
 import com.example.javanotifications.outbox.infrastructure.persistence.PostgresOutboxRepository;
 
 @SpringBootApplication
-public class JavaNotificationsApplication {
+public class JavaNotificationsApplication implements ApplicationContextAware{
+	private static ApplicationContext context;
 
 	public static void main(String[] args) {
 		SpringApplication.run(JavaNotificationsApplication.class, args);
 		SendNotificationCommand command = new SendNotificationCommand(UUID.randomUUID(), "email", "text");
-		NotificationRepository notificationRepository = new PostgresNotificationRepository();
-		OutboxRepository outboxRepository = new PostgresOutboxRepository();
-		SendNotificationUsecase sendUseCase = new SendNotificationUsecase(notificationRepository, outboxRepository);
-		//sendUseCase.execute(command);
+		
+		SendNotificationUsecase sendUseCase = context.getBean(SendNotificationUsecase.class);
+		sendUseCase.execute(command);
+	}
+
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		context = applicationContext;
+		
 	}
 
 }
