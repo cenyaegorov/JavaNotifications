@@ -10,4 +10,14 @@ public class OutboxEvent {
 		this.requestId = requestId;
 		this.status = OutboxEventStatus.NEW;
 	}
+	
+	public void markPublished() {
+		this.status = OutboxEventStatus.PUBLISHED;
+	}
+	public void markFailed() {
+		this.status = OutboxEventStatus.FAILED;
+	}
+	
+	public UUID getRequestId() { return this.requestId; }
+	public OutboxEventStatus getStatus() { return this.status; }
 }

@@ -2,25 +2,12 @@ package com.example.javanotifications.outbox.infrastructure.persistence.mappers;
 
 import org.springframework.stereotype.Component;
 
-import com.example.javanotifications.email.application.port.out.NotificationMapper;
+import com.example.javanotifications.email.application.port.out.DomainEntityMapper;
 import com.example.javanotifications.email.domain.notification.Notification;
 import com.example.javanotifications.outbox.infrastructure.persistence.entities.NotificationEntity;
 
 @Component
-public class NotificationMapperImpl implements NotificationMapper {
-
-	@Override
-	public Notification toNotification(NotificationEntity entity) {
-		return new Notification(
-				entity.getRequestId(),
-				entity.getEmail(),
-				entity.getPayload(),
-				entity.getCreatedAt(),
-				entity.getUpdatedAt(),
-				entity.getAttemptCount(),
-				entity.getStatus()
-				);
-	}
+public class NotificationMapperImpl implements DomainEntityMapper<Notification, NotificationEntity> {
 
 	@Override
 	public NotificationEntity toEntity(Notification notification) {
@@ -33,6 +20,19 @@ public class NotificationMapperImpl implements NotificationMapper {
 		entity.setAttemptCount(notification.getAttemptCount());
 		entity.setStatus(notification.getStatus());
 		return entity;
+	}
+
+	@Override
+	public Notification toDomain(NotificationEntity entity) {
+		return new Notification(
+				entity.getRequestId(),
+				entity.getEmail(),
+				entity.getPayload(),
+				entity.getCreatedAt(),
+				entity.getUpdatedAt(),
+				entity.getAttemptCount(),
+				entity.getStatus()
+				);
 	}
 
 }
