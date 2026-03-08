@@ -11,8 +11,10 @@ import com.example.javanotifications.outbox.domain.OutboxEvent;
 import com.example.javanotifications.outbox.domain.OutboxEventStatus;
 
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
+@Slf4j
 public class OutboxSheduler {
 	private final OutboxEventRepository repository;
 	private final KafkaTemplate<String, String> template;
@@ -20,11 +22,13 @@ public class OutboxSheduler {
 	public OutboxSheduler(OutboxEventRepository repository, KafkaTemplate<String, String> template) {
 		this.repository = repository;
 		this.template = template;
+		log.info("created");
 	}
 
 	@Scheduled(fixedDelay = 5000)
 	public void publishEvents() {
 		List<OutboxEvent> events = getEvents();
+		log.info("sheduled");
 		
 		for (OutboxEvent event : events) {
 			try {
