@@ -16,8 +16,11 @@ public class OutboxEvent {
 		this.status = status;
 	}
 	
-	public void markPublished() {
-		this.status = OutboxEventStatus.PUBLISHED;
+	public void markProcessing() {
+		this.status = OutboxEventStatus.PROCESSING;
+	}
+	public void markProcessed() {
+		this.status = OutboxEventStatus.PROCESSED;
 	}
 	public void markFailed() {
 		this.status = OutboxEventStatus.FAILED;
