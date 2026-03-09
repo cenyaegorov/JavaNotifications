@@ -1,5 +1,6 @@
 package com.example.javanotifications.outbox.infrastructure.persistence.entities;
 
+import java.time.Instant;
 import java.util.UUID;
 
 import com.example.javanotifications.outbox.domain.OutboxEventStatus;
@@ -21,4 +22,6 @@ public class OutboxEventEntity {
 	private UUID id;
 	@Enumerated(EnumType.STRING)
 	private OutboxEventStatus status;
+	private Instant createdAt;
+	private Instant updatedAt;
 }

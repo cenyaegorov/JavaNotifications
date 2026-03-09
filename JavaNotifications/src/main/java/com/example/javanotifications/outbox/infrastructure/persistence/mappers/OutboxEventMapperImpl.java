@@ -11,7 +11,7 @@ public class OutboxEventMapperImpl implements DomainEntityMapper<OutboxEvent, Ou
 
 	@Override
 	public OutboxEvent toDomain(OutboxEventEntity entity) {
-		return new OutboxEvent(entity.getId(), entity.getStatus());
+		return new OutboxEvent(entity.getId(), entity.getStatus(), entity.getCreatedAt(), entity.getUpdatedAt());
 	}
 
 	@Override
@@ -19,6 +19,8 @@ public class OutboxEventMapperImpl implements DomainEntityMapper<OutboxEvent, Ou
 		OutboxEventEntity entity = new OutboxEventEntity();
 		entity.setId(domain.getId());
 		entity.setStatus(domain.getStatus());
+		entity.setCreatedAt(domain.getCreatedAt());
+		entity.setUpdatedAt(domain.getUpdatedAt());
 		return entity;
 	}
 

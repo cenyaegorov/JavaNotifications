@@ -31,7 +31,7 @@ public class OutboxEventRepositoryImpl implements OutboxEventRepository {
 	@Override
 	@Transactional
 	public List<OutboxEvent> findByStatusWithLockAndLimit(OutboxEventStatus status, int limit) {
-		List<OutboxEventEntity> entities = repository.findByStatusWithLockAndLimit(status, limit);
+		List<OutboxEventEntity> entities = repository.findByStatusWithLockAndLimit(status.toString(), limit);
 		
 		return entities.stream().map(mapper::toDomain).collect(Collectors.toList());
 	}
