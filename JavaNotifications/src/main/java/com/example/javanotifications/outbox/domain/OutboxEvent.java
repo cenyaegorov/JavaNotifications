@@ -3,6 +3,8 @@ package com.example.javanotifications.outbox.domain;
 import java.time.Instant;
 import java.util.UUID;
 
+import com.example.javanotifications.outbox.dto.NotificationPayload;
+
 public class OutboxEvent {
 	private static byte MAX_ATTEMPT = 3;
 	
@@ -12,23 +14,26 @@ public class OutboxEvent {
 	private Instant updatedAt;
 	private Instant nextUpdate;
 	private byte attemptcount;
+	private NotificationPayload payload;
 	
-	public OutboxEvent(UUID id) {
+	public OutboxEvent(UUID id, NotificationPayload payload) {
 		this.id = id;
 		this.status = OutboxEventStatus.NEW;
 		this.createdAt = Instant.now();
 		this.updatedAt = Instant.now();
 		this.nextUpdate = Instant.now();
 		this.attemptcount = 0;
+		this.payload = payload;
 	}
 	
-	public OutboxEvent(UUID id, OutboxEventStatus status, Instant createdAt, Instant updatedAt, Instant nextUpdate, byte attemptCount) {
+	public OutboxEvent(UUID id, OutboxEventStatus status, Instant createdAt, Instant updatedAt, Instant nextUpdate, byte attemptCount, NotificationPayload payload) {
 		this.id = id;
 		this.status = status;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.nextUpdate = nextUpdate;
 		this.attemptcount = attemptCount;
+		this.payload = payload;
 	}
 	
 	public void markProcessingWithoutAttempt() {
@@ -71,4 +76,5 @@ public class OutboxEvent {
 	public Instant getUpdatedAt() { return this.updatedAt; }
 	public Instant getNextUpdate() { return this.nextUpdate; }
 	public byte getAttemptCount() {return this.attemptcount; }
+	public NotificationPayload getPayload() { return this.payload; }
 }

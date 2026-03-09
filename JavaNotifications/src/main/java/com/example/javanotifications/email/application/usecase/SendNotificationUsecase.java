@@ -7,6 +7,7 @@ import com.example.javanotifications.email.application.port.out.EventPublisher;
 import com.example.javanotifications.email.application.port.out.repositories.NotificationRepository;
 import com.example.javanotifications.email.application.port.out.repositories.OutboxEventRepository;
 import com.example.javanotifications.outbox.domain.OutboxEvent;
+import com.example.javanotifications.outbox.dto.NotificationPayload;
 
 import jakarta.transaction.Transactional;
 
@@ -24,10 +25,23 @@ public class SendNotificationUsecase implements SendNotificationUsecasePort {
 	@Transactional
 	public boolean execute(SendNotificationCommand command) {
 		Notification notification = new Notification(command.requestId(), command.email(), command.payload());
-		OutboxEvent outboxEvent = new OutboxEvent(command.requestId());
+		NotificationPayload payload = toPayload(notification);
+		OutboxEvent outboxEvent = new OutboxEvent(command.requestId(), payload);
 		notificationRepository.save(notification);
 		outboxRepository.saveEvent(outboxEvent);
 		return true;
 	}
-
+	
+	private NotificationPayload toPayload(Notification notification) {
+		NotificationPayload payload = new NotificationPayload();
+		payload.setEmail(notification.getEmail());
+		payload.setRequestId(notification.getId());
+		payload.setCreatedAt(notification.getCreatedAt());
+		payload.setAttemptCount(notification.getAttemptCount());
+		payload.setPayload(notification.getPayload());
+		payload.setStatus(notification.getStatus());
+		payload.setUpdatedAt(notification.getUpdatedAt());
+		
+		return payload;
+	}
 }

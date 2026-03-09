@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.example.javanotifications.email.application.port.out.repositories.OutboxEventRepository;
 import com.example.javanotifications.outbox.domain.OutboxEvent;
 import com.example.javanotifications.outbox.domain.OutboxEventStatus;
+import com.example.javanotifications.outbox.dto.NotificationPayload;
 
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -18,9 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class OutboxSheduler {
 	private final OutboxEventRepository repository;
-	private final KafkaTemplate<String, String> template;
+	private final KafkaTemplate<String, Object> template;
 	
-	public OutboxSheduler(OutboxEventRepository repository, KafkaTemplate<String, String> template) {
+	public OutboxSheduler(OutboxEventRepository repository, KafkaTemplate<String, Object> template) {
 		this.repository = repository;
 		this.template = template;
 		log.info("created");
@@ -33,7 +34,7 @@ public class OutboxSheduler {
 		
 		for (OutboxEvent event : events) {
 			try {
-			template.send("notifications", event.getId().toString()).get();
+			template.send("notifications", event.getPayload()).get();
 			event.markProcessed();
 			}
 			catch (Exception e) {
@@ -50,7 +51,7 @@ public class OutboxSheduler {
 		
 		for (OutboxEvent event: events) {
 			try {
-				template.send("notifications", event.getId().toString()).get();
+				template.send("notifications", event.getPayload()).get();
 				event.markProcessed();
 			}
 			catch (Exception e) {
