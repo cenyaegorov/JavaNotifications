@@ -3,7 +3,7 @@ package com.example.javanotifications.email.infrastructure.persistence.entities;
 import java.time.Instant;
 import java.util.UUID;
 
-import com.example.javanotifications.email.domain.notification.NotificationStatus;
+import com.example.javanotifications.common.domain.NotificationStatus;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

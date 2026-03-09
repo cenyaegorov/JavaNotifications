@@ -1,4 +1,4 @@
-package com.example.javanotifications.email.domain.notification;
+package com.example.javanotifications.common.domain;
 
 import java.time.Instant;
 import java.util.UUID;

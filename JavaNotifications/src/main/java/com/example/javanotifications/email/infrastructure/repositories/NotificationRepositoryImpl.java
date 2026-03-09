@@ -2,9 +2,9 @@ package com.example.javanotifications.email.infrastructure.repositories;
 
 import org.springframework.stereotype.Repository;
 
+import com.example.javanotifications.common.domain.Notification;
 import com.example.javanotifications.email.application.port.out.DomainEntityMapper;
 import com.example.javanotifications.email.application.port.out.repositories.NotificationRepository;
-import com.example.javanotifications.email.domain.notification.Notification;
 import com.example.javanotifications.email.infrastructure.persistence.entities.NotificationEntity;
 
 @Repository

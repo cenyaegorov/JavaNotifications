@@ -2,8 +2,8 @@ package com.example.javanotifications.email.infrastructure.persistence.mappers;
 
 import org.springframework.stereotype.Component;
 
+import com.example.javanotifications.common.domain.Notification;
 import com.example.javanotifications.email.application.port.out.DomainEntityMapper;
-import com.example.javanotifications.email.domain.notification.Notification;
 import com.example.javanotifications.email.infrastructure.persistence.entities.NotificationEntity;
 
 @Component

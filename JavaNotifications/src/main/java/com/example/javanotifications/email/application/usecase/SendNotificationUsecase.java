@@ -1,11 +1,11 @@
 package com.example.javanotifications.email.application.usecase;
 
+import com.example.javanotifications.common.domain.Notification;
 import com.example.javanotifications.email.application.dto.SendNotificationCommand;
 import com.example.javanotifications.email.application.port.in.SendNotificationUsecasePort;
 import com.example.javanotifications.email.application.port.out.EventPublisher;
 import com.example.javanotifications.email.application.port.out.repositories.NotificationRepository;
 import com.example.javanotifications.email.application.port.out.repositories.OutboxEventRepository;
-import com.example.javanotifications.email.domain.notification.Notification;
 import com.example.javanotifications.outbox.domain.OutboxEvent;
 
 import jakarta.transaction.Transactional;
