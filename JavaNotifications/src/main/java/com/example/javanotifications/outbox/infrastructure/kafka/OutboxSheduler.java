@@ -1,5 +1,6 @@
 package com.example.javanotifications.outbox.infrastructure.kafka;
 
+import java.time.Instant;
 import java.util.List;
 
 import org.springframework.kafka.core.KafkaTemplate;
@@ -28,18 +29,46 @@ public class OutboxSheduler {
 	@Scheduled(fixedDelay = 5000)
 	public void publishEvents() {
 		List<OutboxEvent> events = getEvents();
-		log.info("sheduled");
+		log.info("publishEvents() scheduled");
 		
 		for (OutboxEvent event : events) {
 			try {
-			template.send("notifications", event.getId().toString());
+			template.send("notifications", event.getId().toString()).get();
 			event.markProcessed();
 			}
 			catch (Exception e) {
-				event.markFailed();
+				log.error("Failed to send event {}", event.getId(), e);
 			}
 			repository.saveEvent(event);
 		}
+	}
+	
+	@Scheduled(fixedDelay = 30000, initialDelay = 5000)
+	public void retryEvents() {
+		List<OutboxEvent> events = getUnsentEvents();
+		log.info("retryEvents() scheduled");
+		
+		for (OutboxEvent event: events) {
+			try {
+				template.send("notifications", event.getId().toString()).get();
+				event.markProcessed();
+			}
+			catch (Exception e) {
+				log.error("Failed to send event {}", event.getId(), e);
+			}
+			repository.saveEvent(event);
+		}
+	}
+	
+	@Transactional
+	public List<OutboxEvent> getUnsentEvents() {
+		List<OutboxEvent> events = repository.findByStatusByCompareNextUpdateWithLockAndLimit(OutboxEventStatus.PROCESSING, Instant.now(), 100);
+		
+		for (OutboxEvent event: events) {
+			event.markProcessing();
+		}
+		
+		return events;
 	}
 	
 	@Transactional

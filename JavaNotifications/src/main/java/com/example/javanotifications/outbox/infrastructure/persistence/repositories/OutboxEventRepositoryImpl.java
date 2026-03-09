@@ -1,5 +1,6 @@
 package com.example.javanotifications.outbox.infrastructure.persistence.repositories;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,6 +41,15 @@ public class OutboxEventRepositoryImpl implements OutboxEventRepository {
 	public void saveAll(List<OutboxEvent> events) {
 		repository.saveAll(events.stream().map(mapper::toEntity).collect(Collectors.toList()));
 		
+	}
+
+	@Override
+	@Transactional
+	public List<OutboxEvent> findByStatusByCompareNextUpdateWithLockAndLimit(OutboxEventStatus status, Instant instant,
+			int limit) {
+		List<OutboxEventEntity> entities = repository.findByStatusByCompareNextUpdateWithLockAndLimit(status.toString(), instant, limit);
+		
+		return entities.stream().map(mapper::toDomain).collect(Collectors.toList());
 	}
 
 }

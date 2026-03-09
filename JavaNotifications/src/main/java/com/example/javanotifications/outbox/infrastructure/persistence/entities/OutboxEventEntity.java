@@ -24,4 +24,6 @@ public class OutboxEventEntity {
 	private OutboxEventStatus status;
 	private Instant createdAt;
 	private Instant updatedAt;
+	private Instant nextUpdate;
+	private byte attemptCount;
 }
