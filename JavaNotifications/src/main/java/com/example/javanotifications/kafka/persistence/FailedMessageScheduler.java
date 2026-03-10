@@ -53,4 +53,15 @@ public class FailedMessageScheduler {
 		repository.saveAll(notifications);
 		return notifications;
 	}
+	
+	@Transactional
+	@Scheduled(fixedDelay = 60000)
+	public void processProcessing() {
+		List<Notification> notifications = repository.findByStatusAndCompareToNextUpdateLimitWithLock(NotificationStatus.PROCESSING, Instant.now(), 100);
+		
+		for (Notification notification: notifications) {
+			notification.markFailed();
+		}
+		repository.saveAll(notifications);
+	}
 }

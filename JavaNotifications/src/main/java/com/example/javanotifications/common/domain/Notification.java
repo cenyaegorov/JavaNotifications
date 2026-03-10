@@ -37,9 +37,7 @@ public class Notification {
 	}
 	
 	public void markProcessing() {
-		if (this.status != NotificationStatus.NEW) {
-			throw new IllegalStateException("cannot process notification in status " + this.status);
-		}
+		this.nextUpdate.plusMillis(15000);
 		
 		this.status = NotificationStatus.PROCESSING;
 		this.updatedAt = Instant.now();
