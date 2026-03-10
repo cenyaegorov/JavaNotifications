@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.example.javanotifications.common.application.port.out.DomainEntityMapper;
 import com.example.javanotifications.common.application.port.out.repositories.NotificationRepository;
 import com.example.javanotifications.common.domain.Notification;
+import com.example.javanotifications.common.domain.NotificationStatus;
 import com.example.javanotifications.common.infrastructure.persistence.entities.NotificationEntity;
 
 import jakarta.transaction.Transactional;
@@ -29,8 +30,8 @@ public class NotificationRepositoryImpl implements NotificationRepository {
 
 	@Override
 	@Transactional
-	public Notification findById(UUID id) {
-		Optional<NotificationEntity> entity = repository.findById(id);
+	public Notification findByIdAndStatus(UUID id, NotificationStatus status) {
+		Optional<NotificationEntity> entity = repository.findByIdAndStatus(id, status);
 		if (entity.isEmpty()) return null;
 		return mapper.toDomain(entity.get());
 	}

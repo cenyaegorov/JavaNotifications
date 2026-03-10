@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.javanotifications.common.application.port.out.repositories.NotificationRepository;
 import com.example.javanotifications.common.domain.Notification;
+import com.example.javanotifications.common.domain.NotificationStatus;
 import com.example.javanotifications.email.application.port.out.EmailSender;
 import com.example.javanotifications.outbox.dto.NotificationPayload;
 
@@ -25,7 +26,7 @@ public class ProcessNotificationUseCase implements ProcessNotificationUseCasePor
 
 	@Override
 	public void execute(NotificationPayload payload) {
-		Notification notification = getNotificationById(payload.getRequestId());
+		Notification notification = getNewNotificationById(payload.getRequestId());
 		
 		try {
 			sender.send(notification.getEmail(), notification.getPayload());
@@ -41,11 +42,11 @@ public class ProcessNotificationUseCase implements ProcessNotificationUseCasePor
 	}
 	
 	@Transactional
-	public Notification getNotificationById(UUID id) {
-		Notification notification = repository.findById(id);
+	public Notification getNewNotificationById(UUID id) {
+		Notification notification = repository.findByIdAndStatus(id, NotificationStatus.NEW);
 		
 		if (notification == null) {
-			throw new IllegalStateException("Notification " + id + "is not found");
+			throw new IllegalStateException("Notification " + id + "is not found or already is marked PROCESSING");
 		}
 		
 		notification.markProcessing();
