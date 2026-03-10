@@ -29,6 +29,7 @@ public class ProcessNotificationUseCase implements ProcessNotificationUseCasePor
 		
 		try {
 			sender.send(notification.getEmail(), notification.getPayload());
+			notification.markSent();
 		}
 		catch (Exception e) {
 			log.error("Cannot send email " + notification.getEmail() + " with id " + notification.getId());

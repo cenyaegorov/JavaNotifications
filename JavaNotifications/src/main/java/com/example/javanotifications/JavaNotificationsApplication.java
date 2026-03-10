@@ -24,7 +24,7 @@ public class JavaNotificationsApplication implements ApplicationContextAware{
 		SendNotificationCommand command = new SendNotificationCommand(UUID.randomUUID(), "email", "text");
 		
 		SendNotificationUsecase sendUseCase = context.getBean(SendNotificationUsecase.class);
-		//sendUseCase.execute(command);
+		sendUseCase.execute(command);
 	}
 
 	@Override

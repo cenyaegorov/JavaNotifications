@@ -13,16 +13,17 @@ import tools.jackson.databind.ObjectMapper;
 @Slf4j
 public class NotificationConsumer {
 	private final ProcessNotificationUseCasePort processNotification;
+	private final ObjectMapper mapper;
 	
-	public NotificationConsumer(ProcessNotificationUseCasePort processNotification) {
+	public NotificationConsumer(ProcessNotificationUseCasePort processNotification, ObjectMapper mapper) {
 		this.processNotification = processNotification;
+		this.mapper = mapper;
 	}
 	
 	@KafkaListener(topics = "notifications")
-	public void consume(Object message) {
+	public void consume(NotificationPayload message) {
 		try {
-			NotificationPayload payload = (NotificationPayload) message;
-			processNotification.execute(payload);
+			processNotification.execute(message);
 		}
 		catch (Exception e) {
 			log.error("Failed to process message, {}", message.toString(), e);
