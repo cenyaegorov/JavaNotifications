@@ -22,6 +22,7 @@ public class NotificationConsumer {
 	public void consume(Object message) {
 		try {
 			NotificationPayload payload = (NotificationPayload) message;
+			processNotification.execute(payload);
 		}
 		catch (Exception e) {
 			log.error("Failed to process message, {}", message.toString(), e);

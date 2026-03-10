@@ -1,4 +1,4 @@
-package com.example.javanotifications.email.application.port.out;
+package com.example.javanotifications.common.application.port.out;
 
 public interface DomainEntityMapper<T, U> {
 	public T toDomain(U entity);

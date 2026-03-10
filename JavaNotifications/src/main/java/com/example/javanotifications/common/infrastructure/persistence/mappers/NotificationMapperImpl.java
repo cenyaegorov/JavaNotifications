@@ -2,15 +2,16 @@ package com.example.javanotifications.common.infrastructure.persistence.mappers;
 
 import org.springframework.stereotype.Component;
 
+import com.example.javanotifications.common.application.port.out.DomainEntityMapper;
 import com.example.javanotifications.common.domain.Notification;
 import com.example.javanotifications.common.infrastructure.persistence.entities.NotificationEntity;
-import com.example.javanotifications.email.application.port.out.DomainEntityMapper;
 
 @Component
 public class NotificationMapperImpl implements DomainEntityMapper<Notification, NotificationEntity> {
 
 	@Override
 	public NotificationEntity toEntity(Notification notification) {
+		if (notification == null) throw new IllegalArgumentException("notification for mapping to entity is null!");
 		NotificationEntity entity = new NotificationEntity();
 		entity.setRequestId(notification.getId());
 		entity.setEmail(notification.getEmail());
@@ -24,6 +25,7 @@ public class NotificationMapperImpl implements DomainEntityMapper<Notification, 
 
 	@Override
 	public Notification toDomain(NotificationEntity entity) {
+		if (entity == null) throw new IllegalArgumentException("entity for mapping to notification is null!");
 		return new Notification(
 				entity.getRequestId(),
 				entity.getEmail(),

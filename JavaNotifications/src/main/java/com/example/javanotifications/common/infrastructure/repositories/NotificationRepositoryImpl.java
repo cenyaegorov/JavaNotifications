@@ -1,11 +1,16 @@
 package com.example.javanotifications.common.infrastructure.repositories;
 
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.stereotype.Repository;
 
+import com.example.javanotifications.common.application.port.out.DomainEntityMapper;
 import com.example.javanotifications.common.application.port.out.repositories.NotificationRepository;
 import com.example.javanotifications.common.domain.Notification;
 import com.example.javanotifications.common.infrastructure.persistence.entities.NotificationEntity;
-import com.example.javanotifications.email.application.port.out.DomainEntityMapper;
+
+import jakarta.transaction.Transactional;
 
 @Repository
 public class NotificationRepositoryImpl implements NotificationRepository {
@@ -20,6 +25,14 @@ public class NotificationRepositoryImpl implements NotificationRepository {
 	@Override
 	public void save(Notification notification) {
 		repository.save(mapper.toEntity(notification));
+	}
+
+	@Override
+	@Transactional
+	public Notification findById(UUID id) {
+		Optional<NotificationEntity> entity = repository.findById(id);
+		if (entity.isEmpty()) return null;
+		return mapper.toDomain(entity.get());
 	}
 
 }

@@ -2,7 +2,7 @@ package com.example.javanotifications.outbox.infrastructure.persistence.mappers;
 
 import org.springframework.stereotype.Component;
 
-import com.example.javanotifications.email.application.port.out.DomainEntityMapper;
+import com.example.javanotifications.common.application.port.out.DomainEntityMapper;
 import com.example.javanotifications.outbox.domain.OutboxEvent;
 import com.example.javanotifications.outbox.infrastructure.persistence.entities.OutboxEventEntity;
 
