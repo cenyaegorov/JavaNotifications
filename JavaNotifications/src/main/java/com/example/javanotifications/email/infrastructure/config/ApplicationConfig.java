@@ -18,8 +18,8 @@ import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
-import com.example.javanotifications.email.application.port.out.repositories.NotificationRepository;
-import com.example.javanotifications.email.application.port.out.repositories.OutboxEventRepository;
+import com.example.javanotifications.common.application.port.out.repositories.NotificationRepository;
+import com.example.javanotifications.common.application.port.out.repositories.OutboxEventRepository;
 import com.example.javanotifications.email.application.usecase.SendNotificationUsecase;
 import com.example.javanotifications.outbox.dto.NotificationPayload;
 

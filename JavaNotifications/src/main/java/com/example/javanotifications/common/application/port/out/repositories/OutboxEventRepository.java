@@ -1,4 +1,4 @@
-package com.example.javanotifications.email.application.port.out.repositories;
+package com.example.javanotifications.common.application.port.out.repositories;
 
 import java.time.Instant;
 import java.util.List;

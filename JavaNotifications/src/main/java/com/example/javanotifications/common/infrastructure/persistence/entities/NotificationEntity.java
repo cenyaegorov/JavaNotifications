@@ -1,4 +1,4 @@
-package com.example.javanotifications.email.infrastructure.persistence.entities;
+package com.example.javanotifications.common.infrastructure.persistence.entities;
 
 import java.time.Instant;
 import java.util.UUID;

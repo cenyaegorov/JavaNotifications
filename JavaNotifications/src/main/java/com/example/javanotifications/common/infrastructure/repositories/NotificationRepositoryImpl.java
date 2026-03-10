@@ -1,11 +1,11 @@
-package com.example.javanotifications.email.infrastructure.repositories;
+package com.example.javanotifications.common.infrastructure.repositories;
 
 import org.springframework.stereotype.Repository;
 
+import com.example.javanotifications.common.application.port.out.repositories.NotificationRepository;
 import com.example.javanotifications.common.domain.Notification;
+import com.example.javanotifications.common.infrastructure.persistence.entities.NotificationEntity;
 import com.example.javanotifications.email.application.port.out.DomainEntityMapper;
-import com.example.javanotifications.email.application.port.out.repositories.NotificationRepository;
-import com.example.javanotifications.email.infrastructure.persistence.entities.NotificationEntity;
 
 @Repository
 public class NotificationRepositoryImpl implements NotificationRepository {

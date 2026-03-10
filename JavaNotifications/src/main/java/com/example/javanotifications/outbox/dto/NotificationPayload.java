@@ -11,11 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class NotificationPayload extends OutboxPayload{
-	private String email;
+
 	private UUID requestId;
-	private Instant createdAt;
-	private Instant updatedAt;
-	private byte attemptCount;
-	private NotificationStatus status;
-	private String payload;
+	
 }

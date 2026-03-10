@@ -7,7 +7,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.example.javanotifications.email.application.port.out.repositories.OutboxEventRepository;
+import com.example.javanotifications.common.application.port.out.repositories.OutboxEventRepository;
 import com.example.javanotifications.outbox.domain.OutboxEvent;
 import com.example.javanotifications.outbox.domain.OutboxEventStatus;
 import com.example.javanotifications.outbox.dto.NotificationPayload;
