@@ -27,4 +27,5 @@ public class NotificationEntity {
 	@Enumerated(EnumType.STRING)
 	private NotificationStatus status;
 	private byte attemptCount;
+	private Instant nextUpdate;
 }

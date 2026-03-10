@@ -46,7 +46,7 @@ public class ProcessNotificationUseCase implements ProcessNotificationUseCasePor
 		Notification notification = repository.findByIdAndStatus(id, NotificationStatus.NEW);
 		
 		if (notification == null) {
-			throw new IllegalStateException("Notification " + id + "is not found or already is marked PROCESSING");
+			throw new IllegalStateException("Notification " + id + " is not found or already is marked PROCESSING");
 		}
 		
 		notification.markProcessing();

@@ -20,6 +20,7 @@ public class NotificationMapperImpl implements DomainEntityMapper<Notification, 
 		entity.setUpdatedAt(notification.getUpdatedAt());
 		entity.setAttemptCount(notification.getAttemptCount());
 		entity.setStatus(notification.getStatus());
+		entity.setNextUpdate(notification.getNextUpdate());
 		return entity;
 	}
 
@@ -33,7 +34,8 @@ public class NotificationMapperImpl implements DomainEntityMapper<Notification, 
 				entity.getCreatedAt(),
 				entity.getUpdatedAt(),
 				entity.getAttemptCount(),
-				entity.getStatus()
+				entity.getStatus(),
+				entity.getNextUpdate()
 				);
 	}
 
