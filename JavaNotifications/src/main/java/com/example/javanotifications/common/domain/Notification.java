@@ -37,7 +37,7 @@ public class Notification {
 	}
 	
 	public void markProcessing() {
-		this.nextUpdate.plusMillis(15000);
+		this.nextUpdate = Instant.now();
 		
 		this.status = NotificationStatus.PROCESSING;
 		this.updatedAt = Instant.now();

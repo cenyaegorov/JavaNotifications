@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class FailedMessageScheduler {
+	private static final long TIME_OUT_FOR_RETRY_PROCESSING = 60000;
 	private final NotificationRepository repository;
 	private final EmailSender sender;
 
@@ -57,7 +58,7 @@ public class FailedMessageScheduler {
 	@Transactional
 	@Scheduled(fixedDelay = 60000)
 	public void processProcessing() {
-		List<Notification> notifications = repository.findByStatusAndCompareToNextUpdateLimitWithLock(NotificationStatus.PROCESSING, Instant.now(), 100);
+		List<Notification> notifications = repository.findByStatusAndCompareToNextUpdateLimitWithLock(NotificationStatus.PROCESSING, Instant.now().plusMillis(TIME_OUT_FOR_RETRY_PROCESSING), 100);
 		
 		for (Notification notification: notifications) {
 			notification.markFailed();
