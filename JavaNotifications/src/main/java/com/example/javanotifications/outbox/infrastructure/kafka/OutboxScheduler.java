@@ -17,11 +17,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
-public class OutboxSheduler {
+public class OutboxScheduler {
 	private final OutboxEventRepository repository;
 	private final KafkaTemplate<String, Object> template;
 	
-	public OutboxSheduler(OutboxEventRepository repository, KafkaTemplate<String, Object> template) {
+	public OutboxScheduler(OutboxEventRepository repository, KafkaTemplate<String, Object> template) {
 		this.repository = repository;
 		this.template = template;
 		log.info("created");

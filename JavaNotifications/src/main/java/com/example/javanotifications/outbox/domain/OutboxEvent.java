@@ -77,4 +77,5 @@ public class OutboxEvent {
 	public Instant getNextUpdate() { return this.nextUpdate; }
 	public byte getAttemptCount() {return this.attemptcount; }
 	public NotificationPayload getPayload() { return this.payload; }
+	public byte getMaxAttempt() { return this.MAX_ATTEMPT; }
 }
