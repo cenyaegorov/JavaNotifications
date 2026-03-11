@@ -38,11 +38,8 @@ public class OutboxSchedulerTest {
 	OutboxScheduler scheduler;
 	
 	@Test
-	void shouldPublishEvents() {
-		UUID id = UUID.randomUUID();
-		NotificationPayload payload = new NotificationPayload();
-		payload.setRequestId(id);
-		OutboxEvent event = new OutboxEvent(id, payload);
+	void shouldPublishEventsAndMarkAsProcessed() {
+		OutboxEvent event = getEvent();
 		List<OutboxEvent> events = List.of(event);
 		
 		when(repository.findByStatusWithLockAndLimit(eq(OutboxEventStatus.NEW), eq(100))).thenReturn(events);
@@ -56,11 +53,8 @@ public class OutboxSchedulerTest {
 		verify(repository).saveEvent(event);
 	}
 	@Test
-	void shouldFailPublishEvents() {
-		UUID id = UUID.randomUUID();
-		NotificationPayload payload = new NotificationPayload();
-		payload.setRequestId(id);
-		OutboxEvent event = new OutboxEvent(id, payload);
+	void shouldFailPublishEventsAndMarkOnlyAsProcessing() {
+		OutboxEvent event = getEvent();
 		List<OutboxEvent> events = List.of(event);
 		
 		when(repository.findByStatusWithLockAndLimit(eq(OutboxEventStatus.NEW), eq(100))).thenReturn(events);
@@ -74,11 +68,8 @@ public class OutboxSchedulerTest {
 		verify(repository).saveEvent(event);
 	}
 	@Test
-	void shouldRetryEvents() {
-		UUID id = UUID.randomUUID();
-		NotificationPayload payload = new NotificationPayload();
-		payload.setRequestId(id);
-		OutboxEvent event = new OutboxEvent(id, payload);
+	void shouldRetryEventsAndMarkAsProcessed() {
+		OutboxEvent event = getEvent();
 		List<OutboxEvent> events = List.of(event);
 		event.markProcessing();
 		
@@ -92,11 +83,8 @@ public class OutboxSchedulerTest {
 		verify(repository).saveEvent(event);
 	}
 	@Test
-	void shouldFailRetryEvents() {
-		UUID id = UUID.randomUUID();
-		NotificationPayload payload = new NotificationPayload();
-		payload.setRequestId(id);
-		OutboxEvent event = new OutboxEvent(id, payload);
+	void shouldFailRetryEventsAndMarkOnlyAsProcessing() {
+		OutboxEvent event = getEvent();
 		List<OutboxEvent> events = List.of(event);
 		event.markProcessing();
 		
@@ -110,11 +98,8 @@ public class OutboxSchedulerTest {
 		verify(repository).saveEvent(event);
 	}
 	@Test
-	void shouldDeadOutboxEvent() {
-		UUID id = UUID.randomUUID();
-		NotificationPayload payload = new NotificationPayload();
-		payload.setRequestId(id);
-		OutboxEvent event = new OutboxEvent(id, payload);
+	void shouldFailRetryEventMaxAttemptsAndDead() {
+		OutboxEvent event = getEvent();
 		List<OutboxEvent> events = List.of(event);
 		event.markProcessing();
 		
@@ -124,5 +109,12 @@ public class OutboxSchedulerTest {
 		for (int i = 0; i < event.getMaxAttempt(); i++) scheduler.retryEvents();
 		
 		assertEquals(event.getStatus(), OutboxEventStatus.FAILED);
+	}
+	private OutboxEvent getEvent() {
+		UUID id = UUID.randomUUID();
+		NotificationPayload payload = new NotificationPayload();
+		payload.setRequestId(id);
+		OutboxEvent event = new OutboxEvent(id, payload);
+		return event;
 	}
 }
