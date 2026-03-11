@@ -39,8 +39,8 @@ public class FailedMessageScheduler {
 				log.error("Cannot send email " + notification.getEmail() + " with id " + notification.getId());
 				notification.markFailed();
 			}
+			repository.save(notification);
 		}
-		repository.saveAll(notifications);
 	}
 	
 	@Transactional

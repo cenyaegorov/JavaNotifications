@@ -25,7 +25,7 @@ public class Notification {
 		this.payload = payload;
 	}
 	
-	public Notification(UUID requestId, String email, String payload, Instant createdAt, Instant updatedAt, byte attemptCount, NotificationStatus status, Instant nextUpdate) {
+	public Notification(UUID requestId, String email, String payld, Instant createdAt, Instant updatedAt, byte attemptCount, NotificationStatus status, Instant nextUpdate) {
 		this.requestId = requestId;
 		this.email = email;
 		this.createdAt = createdAt;
@@ -49,7 +49,7 @@ public class Notification {
 	public void markFailed() {
 		this.attemptCount++;
 		this.nextUpdate.plusMillis(retryDelay());
-		if (this.attemptCount >= MAX_ATTEMPT) {
+		if (this.attemptCount > MAX_ATTEMPT) {
 			this.status = NotificationStatus.DEAD;
 		}
 		else {
@@ -77,4 +77,5 @@ public class Notification {
 	public byte getAttemptCount() { return this.attemptCount; }
 	public String getPayload() { return this.payload; }
 	public Instant getNextUpdate() { return this.nextUpdate; }
+	public byte getMaxAttempts() { return MAX_ATTEMPT; }
 }
