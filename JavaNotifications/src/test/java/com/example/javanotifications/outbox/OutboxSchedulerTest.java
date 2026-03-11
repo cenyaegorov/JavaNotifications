@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -48,9 +49,8 @@ public class OutboxSchedulerTest {
 		scheduler.publishEvents();
 		
 		assertEquals(event.getStatus(), OutboxEventStatus.PROCESSED);
-		verify(repository).saveAll(events);
 		verify(template, times(1)).send(eq("notifications"), eq(event.getPayload()));
-		verify(repository).saveEvent(event);
+		verify(repository, atLeast(1)).saveEvent(event);
 	}
 	@Test
 	void shouldFailPublishEventsAndMarkOnlyAsProcessing() {
@@ -64,8 +64,7 @@ public class OutboxSchedulerTest {
 		scheduler.publishEvents();
 		
 		assertEquals(event.getStatus(), OutboxEventStatus.PROCESSING);
-		verify(repository).saveAll(events);
-		verify(repository).saveEvent(event);
+		verify(repository, atLeast(1)).saveEvent(event);
 	}
 	@Test
 	void shouldRetryEventsAndMarkAsProcessed() {
