@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.example.javanotifications.common.application.port.out.repositories.NotificationRepository;
 import com.example.javanotifications.common.domain.Notification;
 import com.example.javanotifications.common.domain.NotificationStatus;
-import com.example.javanotifications.email.application.port.in.ProcessNotificationUseCasePort;
+import com.example.javanotifications.email.application.port.in.ProcessEmailNotificationUseCasePort;
 import com.example.javanotifications.email.application.port.out.EmailSender;
 import com.example.javanotifications.outbox.dto.NotificationPayload;
 
@@ -16,11 +16,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class ProcessNotificationUseCase implements ProcessNotificationUseCasePort{
+public class ProcessEmailNotificationUseCase implements ProcessEmailNotificationUseCasePort{
 	private final NotificationRepository repository;
 	private final EmailSender sender;
 	
-	public ProcessNotificationUseCase(NotificationRepository repository, EmailSender sender) {
+	public ProcessEmailNotificationUseCase(NotificationRepository repository, EmailSender sender) {
 		this.repository = repository;
 		this.sender = sender;
 	}

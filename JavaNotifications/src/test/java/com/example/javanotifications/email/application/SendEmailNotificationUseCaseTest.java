@@ -16,11 +16,11 @@ import com.example.javanotifications.common.application.port.out.repositories.No
 import com.example.javanotifications.common.application.port.out.repositories.OutboxEventRepository;
 import com.example.javanotifications.common.domain.Notification;
 import com.example.javanotifications.email.application.dto.SendNotificationCommand;
-import com.example.javanotifications.email.application.usecase.SendNotificationUsecase;
+import com.example.javanotifications.email.application.usecase.SendEmailNotificationUseCase;
 import com.example.javanotifications.outbox.domain.OutboxEvent;
 
 @ExtendWith(MockitoExtension.class)
-public class SendNotificationUseCaseTest {
+public class SendEmailNotificationUseCaseTest {
 
 	@Mock
 	NotificationRepository repository;
@@ -28,7 +28,7 @@ public class SendNotificationUseCaseTest {
 	OutboxEventRepository outboxRepository;
 	
 	@InjectMocks
-	SendNotificationUsecase usecase;
+	SendEmailNotificationUseCase usecase;
 	
 	@Test
 	void ShouldSaveNotificationAndOutboxEvent(){

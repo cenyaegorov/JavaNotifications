@@ -11,7 +11,6 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.example.javanotifications.email.application.dto.SendNotificationCommand;
-import com.example.javanotifications.email.application.usecase.SendNotificationUsecase;
 
 @SpringBootApplication
 @EnableKafka

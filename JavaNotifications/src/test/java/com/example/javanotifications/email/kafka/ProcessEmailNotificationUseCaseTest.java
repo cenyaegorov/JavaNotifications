@@ -18,13 +18,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.example.javanotifications.common.application.port.out.repositories.NotificationRepository;
 import com.example.javanotifications.common.domain.Notification;
 import com.example.javanotifications.common.domain.NotificationStatus;
-import com.example.javanotifications.email.application.port.in.ProcessNotificationUseCasePort;
 import com.example.javanotifications.email.application.port.out.EmailSender;
-import com.example.javanotifications.email.application.usecase.ProcessNotificationUseCase;
+import com.example.javanotifications.email.application.usecase.ProcessEmailNotificationUseCase;
 import com.example.javanotifications.outbox.dto.NotificationPayload;
 
 @ExtendWith(MockitoExtension.class)
-public class ProcessNotificationUseCaseTest {
+public class ProcessEmailNotificationUseCaseTest {
 
 	@Mock
 	NotificationRepository repository;
@@ -33,7 +32,7 @@ public class ProcessNotificationUseCaseTest {
 	EmailSender sender;
 	
 	@InjectMocks
-	ProcessNotificationUseCase usecase;
+	ProcessEmailNotificationUseCase usecase;
 	
 	@Test
 	void shouldSendAndMarkAsSent() {

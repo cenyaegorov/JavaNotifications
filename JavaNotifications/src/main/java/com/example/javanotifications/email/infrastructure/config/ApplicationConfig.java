@@ -20,14 +20,14 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import com.example.javanotifications.common.application.port.out.repositories.NotificationRepository;
 import com.example.javanotifications.common.application.port.out.repositories.OutboxEventRepository;
-import com.example.javanotifications.email.application.usecase.SendNotificationUsecase;
+import com.example.javanotifications.email.application.usecase.SendEmailNotificationUseCase;
 import com.example.javanotifications.outbox.dto.NotificationPayload;
 
 @Configuration
 public class ApplicationConfig {
 	@Bean
-	public SendNotificationUsecase sendNotificationUsecase(NotificationRepository notificationRepository, OutboxEventRepository outboxRepository) {
-		return new SendNotificationUsecase(notificationRepository, outboxRepository);
+	public SendEmailNotificationUseCase sendNotificationUsecase(NotificationRepository notificationRepository, OutboxEventRepository outboxRepository) {
+		return new SendEmailNotificationUseCase(notificationRepository, outboxRepository);
 	}
 	
 

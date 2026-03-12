@@ -3,7 +3,7 @@ package com.example.javanotifications.kafka.consumer;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
-import com.example.javanotifications.email.application.port.in.ProcessNotificationUseCasePort;
+import com.example.javanotifications.email.application.port.in.ProcessEmailNotificationUseCasePort;
 import com.example.javanotifications.outbox.dto.NotificationPayload;
 
 import lombok.extern.slf4j.Slf4j;
@@ -12,10 +12,10 @@ import tools.jackson.databind.ObjectMapper;
 @Component
 @Slf4j
 public class NotificationConsumer {
-	private final ProcessNotificationUseCasePort processNotification;
+	private final ProcessEmailNotificationUseCasePort processNotification;
 	private final ObjectMapper mapper;
 	
-	public NotificationConsumer(ProcessNotificationUseCasePort processNotification, ObjectMapper mapper) {
+	public NotificationConsumer(ProcessEmailNotificationUseCasePort processNotification, ObjectMapper mapper) {
 		this.processNotification = processNotification;
 		this.mapper = mapper;
 	}

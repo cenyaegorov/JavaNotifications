@@ -18,16 +18,16 @@ import com.example.javanotifications.email.api.dto.NotificationStatusResponse;
 import com.example.javanotifications.email.api.dto.SendNotificationRequest;
 import com.example.javanotifications.email.api.dto.SendNotificationResponse;
 import com.example.javanotifications.email.application.dto.SendNotificationCommand;
-import com.example.javanotifications.email.application.port.in.SendNotificationUsecasePort;
+import com.example.javanotifications.email.application.port.in.SendEmailNotificationUseCasePort;
 
 @RestController
 @RequestMapping("/notifications/email")
 public class NotificationController {
 
-	private final SendNotificationUsecasePort sendNotification;
+	private final SendEmailNotificationUseCasePort sendNotification;
 	private final NotificationRepository repository;
 	
-	public NotificationController(SendNotificationUsecasePort sendNotification, NotificationRepository repositroy, NotificationRepository repository) {
+	public NotificationController(SendEmailNotificationUseCasePort sendNotification, NotificationRepository repositroy, NotificationRepository repository) {
 		this.sendNotification = sendNotification;
 		this.repository = repository;
 		
