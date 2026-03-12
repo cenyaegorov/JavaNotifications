@@ -1,4 +1,4 @@
-package com.example.javanotifications.kafka.application;
+package com.example.javanotifications.email.application.port.in;
 
 import com.example.javanotifications.outbox.dto.NotificationPayload;
 

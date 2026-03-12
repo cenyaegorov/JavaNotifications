@@ -1,4 +1,4 @@
-package com.example.javanotifications.kafka.application;
+package com.example.javanotifications.email.application.usecase;
 
 import java.util.UUID;
 
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.example.javanotifications.common.application.port.out.repositories.NotificationRepository;
 import com.example.javanotifications.common.domain.Notification;
 import com.example.javanotifications.common.domain.NotificationStatus;
+import com.example.javanotifications.email.application.port.in.ProcessNotificationUseCasePort;
 import com.example.javanotifications.email.application.port.out.EmailSender;
 import com.example.javanotifications.outbox.dto.NotificationPayload;
 
