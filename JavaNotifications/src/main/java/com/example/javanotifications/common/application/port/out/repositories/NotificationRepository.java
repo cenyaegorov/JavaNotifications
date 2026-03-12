@@ -14,4 +14,5 @@ public interface NotificationRepository {
 	Notification findByIdAndStatus(UUID id, NotificationStatus status);
 	List<Notification> findByStatusAndCompareToNextUpdateLimitWithLock(NotificationStatus status, Instant instant, int limit);
 	public void saveAll(List<Notification> notifications);
+	public Notification findById(UUID id);
 }

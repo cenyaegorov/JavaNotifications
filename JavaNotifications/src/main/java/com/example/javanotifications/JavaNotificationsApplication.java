@@ -21,10 +21,7 @@ public class JavaNotificationsApplication implements ApplicationContextAware{
 
 	public static void main(String[] args) {
 		SpringApplication.run(JavaNotificationsApplication.class, args);
-		SendNotificationCommand command = new SendNotificationCommand(UUID.randomUUID(), "email", "text");
 		
-		SendNotificationUsecase sendUseCase = context.getBean(SendNotificationUsecase.class);
-		sendUseCase.execute(command);
 	}
 
 	@Override

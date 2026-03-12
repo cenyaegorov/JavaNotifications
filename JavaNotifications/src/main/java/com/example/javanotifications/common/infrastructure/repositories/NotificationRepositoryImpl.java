@@ -55,4 +55,11 @@ public class NotificationRepositoryImpl implements NotificationRepository {
 		
 	}
 
+	@Override
+	public Notification findById(UUID id) {
+		Optional<NotificationEntity> entity = repository.findById(id);
+		if (entity.isEmpty()) return null;
+		return mapper.toDomain(entity.get());
+	}
+
 }
