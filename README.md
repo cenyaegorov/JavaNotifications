@@ -19,3 +19,19 @@ The project demonstrates implementation of:
 
 <li>Hexagonal Architecture (Ports & Adapters)</li>
 </ul>
+<h2>Architecture</h2>
+<p>The system is organized using Hexagonal Architecture to separate business logic from infrastructure.</p>
+<pre>
+  API:
+    NotificationController
+  Domain:
+    Notification
+  Application:
+    SendEmailNotificationUseCase
+    ProcessEmailNotificationUseCase
+  Persistence:
+    repositories
+    EmaiSender
+  Messaging:
+    KafkaConsumer
+</pre>
