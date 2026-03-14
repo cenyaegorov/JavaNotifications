@@ -63,4 +63,5 @@ The project demonstrates implementation of:
   <li>Mockito</li>
   <li>Lombok</li>
 </ul>
-
+<h2>Running application</h2>
+<p>Kafka and PostgreSQL must be running. The settings for connecting should be specified in the application.properties. Then run Spring Boot Application.</p>
