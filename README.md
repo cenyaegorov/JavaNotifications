@@ -37,3 +37,30 @@ The project demonstrates implementation of:
 </pre>
 <h2>Message Flow</h2>
 <p>Client request -> REST API -> SendEmailNotificationUseCase -> Save notification + Outbox event -> Outbox scheduler -> Kafka topic -> Notification consumer -> ProcessEmailNotificationUseCase -> EmailSender</p>
+<h2>Retry and failure handling</h2>
+<p>The system implements a database-driven retry mechanism.</p>
+<p>Notification lifecycle:</p>
+<p>New -> Processing -> Sent</p>
+<p>or</p>
+<p>New -> Processing -> Failed -> Processing -> ... -> Sent (limited by MAX_ATTEMPT_COUNT)</p>
+<h2>Retry strategy</h2>
+<ul>
+  <li>Failed notifications are retried by a schedulers.</li>
+  <li>Retry attempts are limited</li>
+  <li>Notifications exceeded retry limit are marked as Dead.</li>
+</ul>
+<p>This approach avoids retry storms and allows monitoring failed notifications.</p>
+<h2>Technologies</h2>
+<p>The project uses following technologies:</p>
+<ul>
+  <li>Java 17+</li>
+  <li>Spring Boot</li>
+  <li>Spring Web</li>
+  <li>Spring Data JPA</li>
+  <li>Apache Kafka</li>
+  <li>PostgreSQL</li>
+  <li>JUnit5</li>
+  <li>Mockito</li>
+  <li>Lombok</li>
+</ul>
+
