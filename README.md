@@ -35,3 +35,5 @@ The project demonstrates implementation of:
   Messaging:
     KafkaConsumer
 </pre>
+<h2>Message Flow</h2>
+<p>Client request -> REST API -> SendEmailNotificationUseCase -> Save notification + Outbox event -> Outbox scheduler -> Kafka topic -> Notification consumer -> ProcessEmailNotificationUseCase -> EmailSender</p>
