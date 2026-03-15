@@ -98,3 +98,10 @@ The project demonstrates implementation of:
   <li>Failure scenarios</li>
 </ul>
 <p>Infrastructure components (Kafka, API) are not unit tested because they require integration environments.</p>
+<h2>Key design decisions</h2>
+<h3>Outbox pattern</h3>
+<p>The Outbox pattern guarantees reliable message publishing by storing events in the database before sending them to Kafka.</p>
+<h3>Idempotent processing</h3>
+<p>Notification processing is idempotent to ensure duplicate Kafka messages do not result in multiple email deliveries.</p>
+<h3>Scheduler based retry</h3>
+<p>Instead of relying on Kafka retries, failed notifications are retried using a database scheduler. This provides better control over retry policies and failure monitoring.</p>
