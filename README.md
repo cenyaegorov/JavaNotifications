@@ -90,3 +90,11 @@ The project demonstrates implementation of:
       "attemptCount":"1"
     }
 </pre>
+<h2>Testing</h2>
+<p>Unit tests are implemented using JUnit 5 and Mockito. Tests cover:</p>
+<ul>
+  <li>Application use cases</li>
+  <li>Scheduler retry logic</li>
+  <li>Failure scenarios</li>
+</ul>
+<p>Infrastructure components (Kafka, API) are not unit tested because they require integration environments.</p>
