@@ -65,3 +65,28 @@ The project demonstrates implementation of:
 </ul>
 <h2>Running application</h2>
 <p>Kafka and PostgreSQL must be running. The settings for connecting should be specified in the application.properties. Then run Spring Boot Application.</p>
+<h2>API</h2>
+<h3>Send Notification</h3>
+<pre>
+  POST /notifications/email
+  Body:
+    {
+      "email":"example@mail.com",
+      "payload":"Hello!"
+    }
+  Response:
+    {
+      "id":"uuid",
+      "status":"ACCEPTED"
+    }
+</pre>
+<h3>Get notification status</h3>
+<pre>
+  GET /notifications/email/{id}
+  Response:
+    {
+      "id":"uuid",
+      "status":"SENT",
+      "attemptCount":"1"
+    }
+</pre>
